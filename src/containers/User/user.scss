@@ -1,0 +1,78 @@
+/**
+ * Author：tantingting
+ * Time：2017/9/21
+ * Description：Description
+ */
+
+.user-detail {
+    .user-info {
+        justify-content: flex-end;
+    }
+
+    .detail-container {
+        margin-top: 30px;
+
+        .ant-tabs-bar {
+            margin-bottom: 0;
+        }
+
+        .ant-tabs-tabpane {
+            border: 1px solid #e9e9ee;
+            border-top: 0;
+            //padding: 15px;
+        }
+    }
+
+    .ant-table-bordered .ant-table-body > table {
+        border: 0;
+    }
+
+    .ant-table-pagination {
+        margin-right: 20px;
+    }
+
+    .post-detail {
+        .img-list {
+            img {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .post-list {
+            position: relative;
+
+            &:hover button {
+                opacity: 1;
+            }
+
+            p.overflow {
+                flex-direction: column;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+                max-height: 100px;
+            }
+
+            button {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                opacity: 0.1;
+                transition: opacity 0.3s ease-in;
+            }
+        }
+    }
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+
+    .img-box {
+        margin-right: 25px;
+    }
+}

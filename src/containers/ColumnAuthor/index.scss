@@ -1,0 +1,271 @@
+/**
+ * Author：tantingting
+ * Time：2017/9/20
+ * Description：Description
+ */
+
+.columnAuthor-index {
+    min-width: 1000px !important;
+    overflow: auto;
+
+    table {
+        .columnAuthor-info {
+            & > div {
+                float: left;
+            }
+
+            h4 {
+                margin-bottom: 5px;
+            }
+
+            span {
+                display: inline-block;
+                padding: 0 4px;
+                color: #fff;
+                border-radius: 1px;
+            }
+
+            input {
+                width: 45px;
+                margin-right: 25px;
+                text-align: center;
+            }
+
+            img {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+                float: right;
+            }
+        }
+    }
+
+    .columnAuthor-status {
+        padding: 3px 8px;
+        background: #00a854;
+        border-radius: 4px;
+        color: #fff;
+
+        &.pre-publish {
+            background: #3dadf2;
+        }
+
+        &.will-publish {
+            background: #e9892f;
+        }
+    }
+
+    .opt-btn {
+        user-select: none;
+        color: #fff;
+        padding: 2px 7px;
+        border-radius: 4px;
+        opacity: 0.8;
+        transition: all 0.1s;
+
+        &.recommend-btn {
+            background: #f56a00;
+        }
+
+        &.disabled {
+            background: #afafaf;
+        }
+
+        &:hover {
+            opacity: 1;
+            box-shadow: 1px 1px 1px #afafaf;
+        }
+    }
+}
+
+.columnAuthor-detail-section {
+    min-width: 1280px;
+
+    .columnAuthor-detail,
+    .columnAuthor-editor {
+        position: relative;
+        padding: 0 15px;
+        margin-top: 50px;
+        //max-height: 1000px;
+        overflow: auto;
+        font-size: 15px;
+        border-left: 1px solid #9e9e9e;
+        border-right: 1px solid #9e9e9e;
+        box-shadow: 2px 2px 2px #bcbcbc, -2px 2px 2px #bcbcbc, 2px -2px 2px #bcbcbc;
+
+        .item-section {
+            border-top: 1px solid #9e9e9e;
+            padding-bottom: 0;
+
+            &.simditor-body {
+                min-height: inherit !important;
+            }
+
+            &:first-of-type {
+                border-top: 0;
+            }
+
+            .item-content {
+                color: #373737;
+                text-align: justify;
+                word-break: break-all;
+                padding: 0 5px;
+
+                p {
+                    margin-bottom: 10px;
+                }
+
+                img {
+                    margin: 0 0 15px;
+                    width: auto;
+                    height: auto;
+                    max-width: 450px;
+
+                    &:last-of-type {
+                        margin: 0;
+                    }
+                }
+            }
+
+            .item-opts,
+            .item-date {
+                float: right;
+                text-align: right;
+                font-size: 14px;
+                color: #afafaf;
+                margin: 0 5px 15px;
+
+                a {
+                    margin: 0 5px;
+                }
+            }
+        }
+
+        .tips {
+            height: 300px;
+            line-height: 300px;
+            text-align: center;
+            font-size: 20px;
+            color: #bcbcbc;
+        }
+
+        .content-end {
+            width: 100%;
+            display: inline-block;
+            height: 50px;
+            line-height: 50px;
+            color: #bcbcbc;
+            font-size: 15px;
+            text-align: center;
+            border-top: 1px solid #e7e7e7;
+        }
+    }
+
+    .columnAuthor-detail {
+        width: 550px;
+    }
+
+    .columnAuthor-editor {
+        min-width: 600px;
+
+        img {
+            height: auto;
+            max-width: 80%;
+        }
+    }
+
+    .check-more-load {
+        width: 96%;
+        padding-right: 15px;
+        background: url("./img/check-more.png") no-repeat right;
+        cursor: pointer;
+        height: 52px;
+        color: #828282;
+        font-size: 14px;
+        line-height: 52px;
+        text-align: right;
+
+        &:hover {
+            background: url("./img/check-more-hover.png") no-repeat right;
+            color: #1482f0;
+        }
+    }
+}
+
+.columnAuthor-send {
+    .upload-div,
+    .description,
+    .columnAuthor-status,
+    .compereName,
+    .inviteInfo,
+    .columnAuthorTitle,
+    .columnAuthorTime,
+    .inviteName {
+        .ant-form-item-control-wrapper {
+            margin-left: 1%;
+        }
+    }
+
+    .send-info {
+        width: 500px;
+        padding: 20px;
+        margin-bottom: 30px;
+
+        .btns {
+            text-align: right;
+            padding-right: 38px;
+        }
+    }
+
+    .ant-upload-select-picture-card i {
+        font-size: 32px;
+        color: #999;
+    }
+
+    .ant-upload-select-picture-card .ant-upload-text {
+        margin-top: 8px;
+        color: #666;
+    }
+
+    .columnAuthor-summary {
+        min-height: 30px;
+        max-height: 70px;
+    }
+
+    .cover-img-tip {
+        display: inline-block;
+        margin-top: 70px;
+    }
+
+    .ant-form-item-label {
+        width: 110px;
+    }
+
+    .simditor-body {
+        height: 600px;
+        overflow-y: auto;
+    }
+}
+
+.page-box {
+    border: 1px solid #e9e9e9;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #e9e9e9;
+}
+
+.previewico {
+    img {
+        max-width: 640px;
+        width: auto;
+    }
+}
+
+.ant-modal-body {
+    .simditor {
+        padding: 30px 50px;
+    }
+}
+
+.pre-Modal {
+    width: 750px;
+}

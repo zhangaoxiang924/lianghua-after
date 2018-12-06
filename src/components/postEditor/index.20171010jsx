@@ -1,0 +1,85 @@
+/**
+ * Author：tantingting
+ * Time：2017/9/21
+ * Description：Description
+ */
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import $ from 'jquery'
+import Simditor from 'simditor'
+import '../../../node_modules/simditor/styles/simditor.css'
+import LargedefaultImg from './img/default-large.png'
+import IconItem from '../icon/icon'
+import {Input, Radio, Button} from 'antd'
+import './index.scss'
+const RadioGroup = Radio.Group
+const {TextArea} = Input
+const EDITTOOLBAR = [
+    'title',
+    'bold',
+    'italic',
+    'underline',
+    'strikethrough',
+    'fontScale',
+    'color',
+    'ol',
+    'ul',
+    'blockquote',
+    'code',
+    'table',
+    'link',
+    'image',
+    'hr',
+    'indent',
+    'outdent',
+    'alignment'
+]
+
+class PostEditor extends Component {
+    componentDidMount () {
+        let editor = new Simditor({
+            textarea: $('.editor'),
+            defaultImage: LargedefaultImg,
+            placeholder: '这里输入帖子内容...',
+            toolbar: EDITTOOLBAR,
+            upload: {
+                url: '//jsonplaceholder.typicode.com/posts/', // 文件上传的接口地址
+                params: {'id': '123'}, // 键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
+                fileKey: 'upload_file', // 服务器端获取文件数据的参数名
+                connectionCount: 3,
+                leaveConfirm: '正在上传文件'
+            }
+        })
+        editor.on('blur ', (e) => {
+            // var v=editor.getValue();
+            console.log(editor.getValue())
+        })
+    }
+
+    render () {
+        return <div className="editor-post-content">
+            <div className="post-title"><Input placeholder="请输入帖子标题"/></div>
+            <div className="post-radio">
+                <RadioGroup>
+                    <Radio value={1}>禁止评论</Radio>
+                    <Radio value={2}>开放评论</Radio>
+                </RadioGroup>
+            </div>
+            <div>
+                <TextArea className="editor" autosize/>
+            </div>
+            <div className="btns">
+                <Button className="mr10"><IconItem type="icon-clear"/>清空</Button>
+                <Button type="primary"><IconItem type="icon-ok"/>发布</Button>
+            </div>
+        </div>
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        loginInfo: state.loginInfo
+    }
+}
+
+export default connect(mapStateToProps)(PostEditor)

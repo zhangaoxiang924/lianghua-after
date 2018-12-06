@@ -1,0 +1,36 @@
+/**
+ * Author: yangbo
+ * Time: 2018-05-16 17:18:11
+ * Description: Description
+ */
+
+body {
+    background-color: #fff;
+}
+
+.cooperation {
+    .btns {
+        display: flex;
+    }
+
+    .opt-btn {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        color: #fff;
+        padding: 2px 7px;
+        border-radius: 4px;
+        opacity: 0.8;
+        -webkit-transition: all 0.1s;
+        transition: all 0.1s;
+        white-space: nowrap;
+
+        &:hover {
+            opacity: 1;
+            -webkit-box-shadow: 1px 1px 1px #afafaf;
+            box-shadow: 1px 1px 1px #afafaf;
+            color: #fff;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+/**
+ * Author：zhoushuanglong
+ * Time：2018-04-08 11:24
+ * Description：cropper img
+ */
+
+.croper-wrap {
+    .cropper-operate {
+        float: left;
+        border-right: 1px solid #dfdfdf;
+        box-sizing: padding-box;
+        height: 100%;
+        width: 50%;
+    }
+
+    .cropper-preview {
+        float: right;
+        height: 100%;
+        width: 50%;
+    }
+
+    .cropper-preview-con {
+        overflow: hidden;
+    }
+}

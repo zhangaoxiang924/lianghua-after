@@ -1,0 +1,120 @@
+/**
+ * Author：tantingting
+ * Time：2017/9/22
+ * Description：Description
+ */
+
+.img-main {
+    .contain {
+        margin-bottom: 30px;
+        padding: 10px 0 0 10px;
+
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 15px;
+        }
+
+        .item {
+            position: relative;
+            padding: 10px;
+            border: 1px solid #e9e9e9;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin: 0 15px 15px 0;
+            transition: all 0.1s ease-in;
+
+            &:hover {
+                box-shadow: 2px 2px 2px #e9e9e9;
+                transform: translate3d(0, -5px, 0);
+            }
+
+            .item-img {
+                position: relative;
+                width: 150px;
+                height: 100px;
+                overflow: hidden;
+                border-radius: 5px;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: rgba(0, 0, 0, 0.2);
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    transition: all 0.2s ease-in;
+                }
+
+                &:hover {
+                    .eye {
+                        opacity: 1;
+                    }
+
+                    &:after {
+                        opacity: 1;
+                    }
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .eye {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    font-size: 16px;
+                    color: #fff;
+                    z-index: 3;
+                    transform: translate(-50%, -50%);
+                    opacity: 0;
+                    transition: all 0.3s ease-in;
+                }
+            }
+
+            .check-box {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                z-index: 4;
+            }
+        }
+    }
+
+    .pagination {
+        float: right;
+    }
+
+    .img-post-main {
+        .post-row {
+            box-shadow: 0 7px 5px -4px #e9e9e9;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 20px;
+
+            .left {
+                width: 300px;
+            }
+        }
+
+        .contain .items {
+            margin: 0;
+            flex: 1;
+        }
+    }
+
+    p {
+        line-height: 32px;
+
+        &.blue-color {
+            color: #108ee9;
+            font-size: 14px;
+        }
+    }
+}

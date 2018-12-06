@@ -1,0 +1,103 @@
+/**
+ * Author：tantingting
+ * Time：2017/9/20
+ * Description：Description
+ */
+
+.marsTrip-index,
+.registrant-index {
+    //min-width: 1600px !important;
+    overflow: auto;
+
+    .btns {
+        p {
+            display: inline-block;
+            //margin-bottom: 10px;
+        }
+    }
+
+    table {
+        .marsTrip-info {
+            & > div {
+                float: left;
+            }
+
+            h4 {
+                margin-bottom: 5px;
+            }
+
+            span {
+                display: inline-block;
+                padding: 0 4px;
+                color: #fff;
+                border-radius: 1px;
+            }
+
+            input {
+                width: 45px;
+                margin-right: 25px;
+                text-align: center;
+            }
+
+            img {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+                float: right;
+            }
+
+            .news-top {
+                display: inline-block;
+                vertical-align: middle;
+
+                .top-num {
+                    margin-left: 5px;
+                    position: relative;
+                }
+
+                .top-bg {
+                    float: left;
+                    background: #ff4f3e;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+
+    .news-status {
+        padding: 3px 8px;
+        background: #00a854;
+        border-radius: 4px;
+        color: #fff;
+
+        &.pre-publish {
+            background: #afafaf;
+        }
+
+        &.cont-publish {
+            background: #ff4943;
+        }
+    }
+
+    .opt-btn {
+        user-select: none;
+        color: #fff;
+        padding: 2px 7px;
+        border-radius: 4px;
+        opacity: 0.8;
+        transition: all 0.1s;
+
+        &.recommend-btn {
+            background: #f56a00;
+        }
+
+        &.disabled {
+            background: #afafaf;
+        }
+
+        &:hover {
+            opacity: 1;
+            box-shadow: 1px 1px 1px #afafaf;
+        }
+    }
+}
