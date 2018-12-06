@@ -481,38 +481,23 @@ const basic = [
     // },
     */
     {
-        key: 'account',
-        symbol: 19,
-        icon: 'icon-accountManager',
-        link: '',
-        text: '账号管理',
-        children: [
-            {
-                key: 'account-flashAccount',
-                icon: 'icon-post-list',
-                link: '/account-flashAccount',
-                text: '快讯账号管理'
-            }
-        ]
-    },
-    {
         key: 'team',
         symbol: 27,
-        icon: 'icon-columnAuthor',
+        icon: 'icon-team',
         link: '/team-list',
         text: '团队管理'
     },
     {
         key: 'partner',
         symbol: 27,
-        icon: 'icon-columnAuthor',
+        icon: 'icon-partner',
         link: '/partner-list',
         text: '合作伙伴管理'
     },
     {
         key: 'council',
         symbol: 27,
-        icon: 'icon-columnAuthor',
+        icon: 'icon-council',
         link: '/council-list',
         text: '委员会管理'
     }
@@ -522,9 +507,9 @@ let menuData = () => {
     let level = parseInt(Cookies.get('hx_level'))
     if (level === 30) {
         return [{
-            key: 'systemAccount',
-            icon: 'icon-systemAccount',
-            link: '/systemAccount-list',
+            key: 'account',
+            icon: 'icon-account',
+            link: '/account-manager',
             symbol: 28,
             text: '系统账号管理'
         }, ...basic]
