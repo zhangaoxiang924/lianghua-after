@@ -83,7 +83,7 @@ class Login extends Component {
     render () {
         const {getFieldDecorator} = this.props.form
         return <div className="login-wrap">
-            <header className="clearfix"><div className="logo">{/* <img src={logo}/> */}</div><h3>火星财经管理后台</h3></header>
+            <header className="clearfix"><div className="logo">{/* <img src={logo}/> */}</div><h3>量化大赛管理</h3></header>
             <div className="login-main">
                 <div className="login-contain">
                     <div className="login-icon"></div>

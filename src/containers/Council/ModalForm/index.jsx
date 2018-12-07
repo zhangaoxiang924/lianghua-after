@@ -10,7 +10,7 @@ class CollectionCreateForm extends Component {
             previewVisible: false,
             previewImage: '',
             fileList: [],
-            coverImgUrl: '',
+            url: '',
             description: '',
             loading: true,
             userType: '1'
@@ -34,21 +34,21 @@ class CollectionCreateForm extends Component {
 
         if (file.status === 'removed') {
             this.setState({
-                coverImgUrl: ''
+                url: ''
             })
         }
 
         if (file.response) {
             if (file.response.code === 1 && file.status === 'done') {
                 this.setState({
-                    coverImgUrl: file.response.obj
+                    url: file.response.obj
                 })
                 this.props.getImgData(file.response.obj)
             }
             if (file.status === 'error') {
                 message.error('网络错误，上传失败！')
                 this.setState({
-                    coverImgUrl: '',
+                    url: '',
                     fileList: []
                 })
             }
@@ -135,10 +135,21 @@ class CollectionCreateForm extends Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="委员信息">
+                        label="委员简介">
                         {getFieldDecorator('description', {
                             initialValue: ''
                         })(<Input rows={4} type="textarea" />)}
+                    </FormItem>
+
+                    <FormItem
+                        {...formItemLayout}
+                        label="排序权重">
+                        {getFieldDecorator('weight', {
+                            initialValue: '0',
+                            rules: [{ required: false, message: '请输入排序权重！' }]
+                        })(
+                            <Input placeholder="权重越大排序越靠前"/>
+                        )}
                     </FormItem>
                 </Form>
             </Modal>

@@ -94,11 +94,13 @@ class CollectionCreateForm extends Component {
                         label="类型"
                     >
                         {getFieldDecorator('category', {
-                            initialValue: '0'
+                            initialValue: '1'
                         })(
                             <Radio.Group>
-                                <Radio value="0">个人</Radio>
-                                <Radio value="1">机构</Radio>
+                                <Radio value="1">独家冠名</Radio>
+                                <Radio value="2">联合发起方</Radio>
+                                <Radio value="3">合作交易所</Radio>
+                                <Radio value="4">特邀战略合作</Radio>
                             </Radio.Group>
                         )}
                     </FormItem>

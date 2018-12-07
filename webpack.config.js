@@ -77,7 +77,7 @@ module.exports = {
             'window.jQuery': 'jquery'
         }),
         new HtmlWebpackPlugin({
-            title: '火星财经管理后台',
+            title: '量化大赛管理后台',
             filepath: DIST_PATH,
             template: resolve(TEM_PATH, 'index.html'),
             chunks: ['index'],

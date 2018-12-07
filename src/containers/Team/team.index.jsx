@@ -9,7 +9,6 @@ import { connect } from 'react-redux'
 import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form, DatePicker } from 'antd'
 import './index.scss'
 import { Link } from 'react-router'
-import IconItem from '../../components/icon/icon'
 import {getTeamList, setSearchQuery, setPageData, setFilterData} from '../../actions/team/team.action'
 import {formatDate, axiosAjax, cutString} from '../../public/index'
 import moment from 'moment'
@@ -342,12 +341,12 @@ class TeamIndex extends Component {
                     <span style={{margin: '0 15px'}}>姓名/公司/团队名：</span>
                     <Input
                         value={search.title}
-                        style={{width: 180}}
+                        style={{width: 180, marginRight: 10}}
                         onChange={(e) => dispatch(setSearchQuery({title: e.target.value}))}
                         placeholder="请输入搜索内容"
                         onPressEnter={() => { this._search() }}
                     />
-                    <Button type="primary" onClick={() => { this._search() }}><IconItem type="icon-search"/>搜索</Button>
+                    <Button type="primary" onClick={() => { this._search() }}>搜索</Button>
                 </Col>
             </Row>
             <div className="mt30">

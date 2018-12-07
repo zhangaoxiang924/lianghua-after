@@ -73,36 +73,51 @@ class TeamSend extends Component {
         })
     }
 
-    // 绑定交易所
-    handleCreate = () => {
+    // 绑定请求
+    bound = (values) => {
         const form = this.modalForm
         const {teamInfo, dispatch} = this.props
         let id = {
             teamId: teamInfo.id,
             passportId: teamInfo.passportId
         }
+        const data = encodeStr({...values, ...id})
+        this.setState({
+            confirmLoading: true
+        })
+        axiosAjax('POST', '/api_key/bind', {data}, (res) => {
+            this.setState({
+                confirmLoading: false
+            })
+            if (res.code === 1) {
+                message.success('绑定成功！')
+                form.resetFields()
+                this.setState({ visible: false })
+                dispatch(getExchangeInfo({...id}))
+            } else {
+                message.error(res.msg)
+            }
+        })
+    }
+    // 绑定交易所
+    handleCreate = () => {
+        const form = this.modalForm
+        const {apiList} = this.props
         form.validateFields((err, values) => {
             if (err) {
                 return
             }
-            this.setState({
-                confirmLoading: true
-            })
-            console.log({...values, ...id})
-            const data = encodeStr({...values, ...id})
-            axiosAjax('POST', '/api_key/bind', {data}, (res) => {
-                this.setState({
-                    confirmLoading: false
+            if (apiList.join(',').indexOf(values.market) !== -1) {
+                confirm({
+                    title: '提示',
+                    content: `${values.market} 交易所已绑定, 是否覆盖?`,
+                    onOk: () => {
+                        this.bound(values)
+                    }
                 })
-                if (res.code === 1) {
-                    message.success('绑定成功！')
-                    form.resetFields()
-                    this.setState({ visible: false })
-                    dispatch(getExchangeInfo({...id}))
-                } else {
-                    message.error(res.msg)
-                }
-            })
+            } else {
+                this.bound(values)
+            }
         })
     }
 
@@ -371,6 +386,18 @@ class TeamSend extends Component {
                                     rules: [{required: true, message: '请输入团队简介！'}]
                                 })(
                                     <TextArea className="team-summary" rows={4} placeholder="请输入团队简介"/>
+                                )}
+                            </FormItem>
+                        </Col>
+                        <Col span={11}>
+                            <FormItem
+                                {...formItemLayout}
+                                label="宣言： ">
+                                {getFieldDecorator('declaration', {
+                                    initialValue: (updateOrNot && teamInfo) ? `${teamInfo.declaration || ''}` : '',
+                                    rules: [{required: true, message: '请输入团队简介！'}]
+                                })(
+                                    <TextArea className="team-summary" rows={4} placeholder="请输入团队宣言"/>
                                 )}
                             </FormItem>
                         </Col>

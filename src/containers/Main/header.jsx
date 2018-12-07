@@ -26,7 +26,7 @@ class MainHeader extends Component {
         // let tag = $.cookie('gameName') ? <Tag onClick={this.handleClick} color="#108ee9" className="game-id">欢迎来到<span className="name"> {$.cookie('gameName')} </span>  后台系统</Tag> : ''
         return <Header className="header">
             <div className="logo"></div>
-            <h3 className="system-title">火星财经管理后台</h3>
+            <h3 className="system-title">量化大赛管理后台</h3>
             {!this.props.tag ? '' : this.props.tag}
             <div className="shop-func">
                 <Button title="主页" type="primary" shape="circle" icon="home" onClick={() => { hashHistory.push('/') }}/>

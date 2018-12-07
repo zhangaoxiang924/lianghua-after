@@ -39,14 +39,12 @@ class Council extends Component {
         const {dispatch} = this.props
         this.doSearch('init')
         columns = [{
-            title: '姓名',
+            title: '名称',
             key: 'name',
             render: (text, record) => (record && <div className="council-info clearfix">
                 <div>
                     <h4 title={record.name} dangerouslySetInnerHTML={this.createMarkup(cutString(record.name, 30))} />
-                    {/*
-                    {parseInt(record.topOrder) === 0 ? '' : <div style={{'display': 'inline-block'}}><span className="council-status has-publish mr10">置顶（{record.topOrder}）</span></div>}
-                    */}
+                    {parseInt(record.weight) === 0 ? '' : <div style={{'display': 'inline-block'}}><span className="council-status has-publish mr10">置顶({record.weight})</span></div>}
                 </div>
             </div>)
         },
@@ -260,7 +258,7 @@ class Council extends Component {
 
     getImgUrl = (data) => {
         this.setState({
-            imgUrl: data
+            url: data
         })
     }
 
@@ -268,7 +266,7 @@ class Council extends Component {
     handleCreate = () => {
         const form = this.form
         form.setFieldsValue({
-            imgUrl: this.state.imgUrl
+            url: this.state.url
         })
         form.validateFields((err, values) => {
             if (err) {

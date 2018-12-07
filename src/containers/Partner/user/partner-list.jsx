@@ -55,9 +55,13 @@ class Partner extends Component {
             key: 'category',
             render: (record) => {
                 if (parseInt(record) === 1) {
-                    return <span className="type-org tag">机构</span>
-                } else if (parseInt(record) === 0) {
-                    return <span className="type-person tag">个人</span>
+                    return <span className="type-org tag">独家冠名</span>
+                } else if (parseInt(record) === 2) {
+                    return <span className="type-unit tag">联合发起方</span>
+                } else if (parseInt(record) === 3) {
+                    return <span className="type-media tag">合作交易所</span>
+                } else if (parseInt(record) === 4) {
+                    return <span className="type-person tag">特邀战略合作</span>
                 } else {
                     return <span className="type-other tag">其他</span>
                 }

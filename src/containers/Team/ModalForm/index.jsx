@@ -71,7 +71,7 @@ class CollectionCreateForm extends Component {
                         label="Passphrase">
                         {getFieldDecorator('passphrase', {
                             initialValue: '',
-                            rules: [{ required: true, message: '请输入账号的Passphrase！' }]
+                            rules: [{ required: false, message: '请输入账号的Passphrase！' }]
                         })(
                             <Input />
                         )}

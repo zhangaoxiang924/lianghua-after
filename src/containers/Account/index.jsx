@@ -5,14 +5,13 @@
  */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form } from 'antd'
+import { Table, Row, Col, Modal, message, Spin, Input, Button, Form } from 'antd'
 import './index.scss'
 import Cookies from 'js-cookie'
 import {getAccountList, setSearchQuery, setPageData, setFilterData, addAccount, selectData} from '../../actions/account/index'
 import {axiosAjax, cutString, channelIdOptions, encodePsd, formatDate} from '../../public/index'
 import UpdatePsw from './updatepsw'
 const confirm = Modal.confirm
-const Option = Select.Option
 const formItemLayout = {
     labelCol: {
         xs: { span: 2 },
@@ -331,11 +330,12 @@ class AccountIndex extends Component {
     }
 
     render () {
-        const {list, filter, search, dispatch, form, selectedData} = this.props
+        const {list, dispatch, form, selectedData} = this.props
         const { getFieldDecorator } = form
         return <div className="account-index">
             <Row>
                 <Col>
+                    {/*
                     <span>账号状态：</span>
                     <Select defaultValue={`${filter.status}`} style={{ width: 100 }} onChange={this.handleChange}>
                         <Option value="">全部</Option>
@@ -349,13 +349,12 @@ class AccountIndex extends Component {
                         onChange={(e) => dispatch(setSearchQuery({value: e.target.value}))}
                         placeholder="输入昵称/手机号搜索"
                     />
-                    <span>
-                        <Button type="primary" onClick={() => { this._search() }}>搜索</Button>
-                        <Button type="primary" style={{margin: '0 0 0 15px'}} onClick={() => {
-                            this.setState({visible: true})
-                            dispatch(selectData({}))
-                        }}>新增账号</Button>
-                    </span>
+                    <Button type="primary" onClick={() => { this._search() }}>搜索</Button>
+                    */}
+                    <Button type="primary" style={{margin: '0 0 0 15px'}} onClick={() => {
+                        this.setState({visible: true})
+                        dispatch(selectData({}))
+                    }}>新增账号</Button>
                 </Col>
             </Row>
             <div className="mt30">

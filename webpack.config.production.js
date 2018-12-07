@@ -126,9 +126,9 @@ module.exports = {
             names: ['vendors']
         }),
         new HtmlWebpackPlugin({
-            title: '火星财经管理后台',
-            keywords: '火星财经管理后台',
-            description: '火星财经管理后台',
+            title: '量化大赛管理后台',
+            keywords: '量化大赛管理后台',
+            description: '量化大赛管理后台',
             filepath: DIST_PATH,
             template: resolve(TEM_PATH, 'index.html'),
             chunks: ['index', 'vendors'],

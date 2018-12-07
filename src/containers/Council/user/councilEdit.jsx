@@ -178,6 +178,16 @@ class CouncilEdit extends Component {
                         })(<Input rows={4} type="textarea" />)}
                     </FormItem>
                     <FormItem
+                        {...formItemLayout}
+                        label="排序权重">
+                        {getFieldDecorator('weight', {
+                            initialValue: (selectContent && selectContent.weight) ? selectContent.weight : '0',
+                            rules: [{ required: false, message: '请输入排序权重！' }]
+                        })(
+                            <Input placeholder="权重越大排序越靠前"/>
+                        )}
+                    </FormItem>
+                    <FormItem
                         wrapperCol={{span: 12, offset: 2}}
                     >
                         <Button
