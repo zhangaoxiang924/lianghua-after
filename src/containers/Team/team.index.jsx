@@ -6,10 +6,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { Input, Row, Col, Button, Table, Modal, message } from 'antd'
-import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form, DatePicker } from 'antd'
+import { Table, Row, Col, Modal, message, Spin, Select, Input, Button, Form } from 'antd'
 import './index.scss'
 import { Link } from 'react-router'
-import {getTeamList, setSearchQuery, setPageData, setFilterData} from '../../actions/team/team.action'
+import {getTeamList, setSearchQuery, setPageData, setFilterData, selectedData} from '../../actions/team/team.action'
 import {formatDate, axiosAjax, cutString} from '../../public/index'
 import moment from 'moment'
 // import Cookies from 'js-cookie'
@@ -35,7 +35,8 @@ class TeamIndex extends Component {
             loading: true,
             teamStatus: null,
             editNewsId: '',
-            noPassReason: ''
+            noPassReason: '',
+            visible: false
         }
     }
 
@@ -50,7 +51,7 @@ class TeamIndex extends Component {
     }
 
     componentWillMount () {
-        const {filter} = this.props
+        const {filter, dispatch} = this.props
         this.doSearch('init', {...filter})
         let optionCol = [{
             title: '操作',
@@ -60,6 +61,14 @@ class TeamIndex extends Component {
                 return <div className="btns">
                     <p>
                         <Link className="mr10 opt-btn" to={{pathname: '/team-send', query: {id: item.id, passportId: item.passportId}}} style={{background: '#e35ba3'}}>编辑</Link>
+                    </p>
+                    <p>
+                        <a className="mr10 opt-btn" href="javascript:void(0)" onClick={() => {
+                            dispatch(selectedData(item))
+                            this.setState({
+                                visible: true
+                            })
+                        }} style={{background: '#e59e21'}}>资产修改</a>
                     </p>
                     {(() => {
                         if (item.registrationState === 1) {
@@ -114,7 +123,7 @@ class TeamIndex extends Component {
         }, {
             title: '审核状态',
             key: 'registrationState',
-            width: 90,
+            width: 100,
             render: (record) => {
                 if (record && record.registrationState === 0) {
                     return <span className="team-status pre-publish">未审批</span>
@@ -132,7 +141,7 @@ class TeamIndex extends Component {
         }, {
             title: '领队信息',
             key: 'basicInfo',
-            width: 130,
+            width: 120,
             render: (text, record) => (record && <div className="participate-info clearfix">
                 <p className="age">姓名：{record.leaderName}</p>
                 <p className="age">公司：{record.companyName}</p>
@@ -141,7 +150,7 @@ class TeamIndex extends Component {
         }, {
             title: '联系方式',
             key: 'phonenum',
-            width: 160,
+            width: 170,
             render: (record) => {
                 return <div>
                     <p className="age">手机号：{record.leaderPhone || '无'}</p>
@@ -154,9 +163,20 @@ class TeamIndex extends Component {
             key: 'description',
             render: (record) => <h4 title={record} dangerouslySetInnerHTML={this.createMarkup(cutString(record, 100))} />
         }, {
+            title: '资产(BTC)',
+            key: 'property',
+            width: 130,
+            render: (record) => {
+                return <div>
+                    <p className="age">初始：{record.initBalance || '0'}</p>
+                    <p className="age">当前：{record.curBalance || '0'}</p>
+                    <p className="age">余额获取：{!record.autoFetchBalance ? '人工' : '自动'}</p>
+                </div>
+            }
+        }, {
             title: '其他信息',
             key: 'others',
-            width: 120,
+            width: 150,
             render: (record) => {
                 return <div>
                     <p className="age">队伍人数：{record.memberCount || '0'}</p>
@@ -299,6 +319,53 @@ class TeamIndex extends Component {
         })
     }
 
+    // 修改资产
+    balanceChange () {
+        const {selectedData, form} = this.props
+        let status = selectedData.autoFetchBalance // `autoFetchBalance`: '1自动获取余额，0人工填写',
+        form.validateFields((err, values) => {
+            if (!err) {
+                confirm({
+                    title: '确认修改',
+                    content: <div className="modal-input">
+                        <span>确认将团队资产修改为：</span>
+                        <p>初始资金：<span style={{fontSize: 15}}>{values.initBalance}</span> BTC</p>
+                        {!status && <p>当前余额：<span style={{fontSize: 15}}>{values.curBalance}</span> BTC</p>}
+                        吗？
+                    </div>,
+                    onOk: () => {
+                        this.setState({
+                            loading: true
+                        })
+                        let balance = status ? {initBalance: values.initBalance} : values
+                        axiosAjax('POST', '/team/update_balance', {
+                            teamId: selectedData.id,
+                            ...balance
+                        }, (res) => {
+                            this.setState({
+                                loading: false,
+                                visible: false
+                            })
+                            if (res.code === 1) {
+                                message.success(`操作成功！`)
+                                form.resetFields()
+                                this.doSearch('init')
+                            } else {
+                                message.error(res.msg)
+                            }
+                        })
+                    },
+                    onCancel: () => {
+                        form.resetFields()
+                        this.setState({
+                            visible: false
+                        })
+                    }
+                })
+            }
+        })
+    }
+
     // 修改状态
     changeState = (item) => {
         axiosAjax('POST', '/team/update', item, (res) => {
@@ -355,51 +422,36 @@ class TeamIndex extends Component {
                 </Spin>
             </div>
             <Modal
-                title="置顶权重"
-                visible={this.state.topIsShow}
-                onOk={() => this.setNewsTop()}
-                onCancel={() => { this.setState({topIsShow: false}); form.resetFields() }}
+                title="团队资产修改"
+                visible={this.state.visible}
+                onOk={() => this.balanceChange()}
+                onCancel={() => { this.setState({visible: false}); form.resetFields() }}
             >
                 <Form>
-                    <FormItem {...formItemLayout} label="置顶权重">
-                        {getFieldDecorator('order', {
+                    <FormItem {...formItemLayout} label="初始资金">
+                        {getFieldDecorator('initBalance', {
                             rules: [{
-                                required: true, message: '请输入置顶权重!'
+                                required: true, message: '请输入初始资金!'
                             }, {
-                                pattern: /^[1-9]\d*$/, message: '设置权重必须大于0!'
+                                pattern: /^[0-9]\d*$/, message: '初始资金必须大于等于0!'
                             }],
-                            initialValue: selectedData.topOrder === 0 ? 1 : selectedData.topOrder
+                            initialValue: selectedData.initBalance || 0
                         })(
-                            <Input min={1}/>
+                            <Input min={0}/>
                         )}
                     </FormItem>
-                    <FormItem {...formItemLayout} label="失效热度">
-                        {getFieldDecorator('topEndHotcount', {
+                    {!selectedData.autoFetchBalance && <FormItem {...formItemLayout} label="当前余额">
+                        {getFieldDecorator('curBalance', {
                             rules: [{
-                                required: true, message: '请输入置顶失效热度!'
+                                required: false, message: '请输入当前余额!'
                             }, {
-                                pattern: /^[1-9]\d*$/, message: '置顶失效热度必须大于0!'
+                                pattern: /^[0-9]\d*$/, message: '当前余额必须大于等于0!'
                             }],
-                            initialValue: selectedData.topEndHotcount && selectedData.topEndHotcount !== 0 ? selectedData.topEndHotcount : 10000
+                            initialValue: selectedData.curBalance || 0
                         })(
-                            <Input min={10000}/>
+                            <Input min={0}/>
                         )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="失效时间: "
-                    >
-                        {getFieldDecorator('topEndTime', {
-                            rules: [{required: true, message: '请选择置顶失效时间！'}],
-                            initialValue: (selectedData.topEndTime && selectedData.topEndTime !== '') ? moment(formatDate(selectedData.topEndTime), 'YYYY-MM-DD HH:mm:ss') : moment().add('hours', 1)
-                        })(
-                            <DatePicker
-                                showTime
-                                disabledDate={this.disabledDate}
-                                format="YYYY-MM-DD HH:mm:ss"
-                            />
-                        )}
-                    </FormItem>
+                    </FormItem>}
                 </Form>
             </Modal>
         </div>

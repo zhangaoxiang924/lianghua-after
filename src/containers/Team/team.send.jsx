@@ -14,6 +14,7 @@ import {
     Button,
     message,
     Row,
+    Radio,
     Col,
     Spin
 } from 'antd'
@@ -23,6 +24,7 @@ import './index.scss'
 import CollectionCreateForm from './ModalForm/index'
 const FormItem = Form.Item
 const {TextArea} = Input
+const RadioGroup = Radio.Group
 const {confirm} = Modal
 
 class TeamSend extends Component {
@@ -226,6 +228,11 @@ class TeamSend extends Component {
                                     } else {
                                         message.error('请填写驳回原因!')
                                     }
+                                },
+                                onCancel: () => {
+                                    this.setState({
+                                        iconLoading: false
+                                    })
                                 }
                             })
                         } else if (status === 1) {
@@ -258,6 +265,11 @@ class TeamSend extends Component {
                                 }
                             })
                         }
+                    },
+                    onCancel: () => {
+                        this.setState({
+                            iconLoading: false
+                        })
                     }
                 })
             } else {
@@ -385,7 +397,7 @@ class TeamSend extends Component {
                                     initialValue: (updateOrNot && teamInfo) ? `${teamInfo.description}` : '',
                                     rules: [{required: true, message: '请输入团队简介！'}]
                                 })(
-                                    <TextArea className="team-summary" rows={4} placeholder="请输入团队简介"/>
+                                    <TextArea className="team-summary" rows={8} placeholder="请输入团队简介"/>
                                 )}
                             </FormItem>
                         </Col>
@@ -397,7 +409,7 @@ class TeamSend extends Component {
                                     initialValue: (updateOrNot && teamInfo) ? `${teamInfo.declaration || ''}` : '',
                                     rules: [{required: true, message: '请输入团队简介！'}]
                                 })(
-                                    <TextArea className="team-summary" rows={4} placeholder="请输入团队宣言"/>
+                                    <TextArea className="team-summary" rows={8} placeholder="请输入团队宣言"/>
                                 )}
                             </FormItem>
                         </Col>
@@ -410,6 +422,22 @@ class TeamSend extends Component {
                                     rules: [{required: false, message: '请输入推荐机构！'}]
                                 })(
                                     <Input className="team-author" placeholder="请输入推荐机构"/>
+                                )}
+                            </FormItem>
+                        </Col>
+
+                        <Col span={11}>
+                            <FormItem
+                                {...formItemLayout}
+                                label="余额获取： ">
+                                {getFieldDecorator('autoFetchBalance', {
+                                    initialValue: teamInfo.autoFetchBalance,
+                                    rules: [{required: false, message: '请选择余额获取方式！'}]
+                                })(
+                                    <RadioGroup>
+                                        <Radio value={1}>自动获取</Radio>
+                                        <Radio value={0}>人工填写</Radio>
+                                    </RadioGroup>
                                 )}
                             </FormItem>
                         </Col>

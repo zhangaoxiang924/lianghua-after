@@ -81,15 +81,27 @@ class Council extends Component {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
+            width: 130,
             render: (record) => (record && formatDate(record))
         }, {
-            title: '简介',
+            title: 'pc 端简介',
             key: 'description',
             render: (record) => {
                 if (!record.description) {
                     return '无'
                 } else {
                     return <h4 title={record.description}>{record.description}</h4>
+                }
+            }
+        }, {
+            title: '手机端简介',
+            width: 260,
+            key: 'brief',
+            render: (record) => {
+                if (!record.description) {
+                    return '无'
+                } else {
+                    return <h4 title={record.brief || '无'}>{record.brief || '无'}</h4>
                 }
             }
         },
@@ -112,6 +124,7 @@ class Council extends Component {
         {
             title: '操作',
             key: 'action',
+            width: 70,
             render: (item) => {
                 return <div>
                     <p>

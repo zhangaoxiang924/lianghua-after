@@ -14,6 +14,7 @@ class CouncilEdit extends Component {
             fileList: [],
             url: '',
             description: '',
+            brief: '',
             loading: true,
             category: '1'
         }
@@ -31,6 +32,7 @@ class CouncilEdit extends Component {
                 url: img
             }],
             description: selectContent.description || '',
+            brief: selectContent.brief || '',
             url: img,
             loading: false,
             category: selectContent.category,
@@ -172,9 +174,16 @@ class CouncilEdit extends Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="描述">
+                        label="pc端简介">
                         {getFieldDecorator('description', {
                             initialValue: (selectContent && selectContent.description) ? selectContent.description : ''
+                        })(<Input rows={4} type="textarea" />)}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="M 端描述">
+                        {getFieldDecorator('brief', {
+                            initialValue: (selectContent && selectContent.brief) ? selectContent.brief : ''
                         })(<Input rows={4} type="textarea" />)}
                     </FormItem>
                     <FormItem

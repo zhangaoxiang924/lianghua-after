@@ -94,7 +94,7 @@ module.exports = {
         host: '192.168.90.12',
         port: '3010',
         proxy: {
-            '/mgr':{
+            '/**':{
                 target:'http://www.cryptoquanter.com',
                 secure: true,
                 changeOrigin: true
@@ -102,6 +102,14 @@ module.exports = {
                 //  '^/help': ''
                 // }
             }
+            // '/**':{
+            //     target:'http://192.168.84.14:8008',
+            //     secure: true,
+            //     changeOrigin: true,
+            //     pathRewrite: {
+            //      '^/mgr': ''
+            //     }
+            // }
         }
     }
 }
