@@ -12,6 +12,7 @@ class CollectionCreateForm extends Component {
             fileList: [],
             url: '',
             description: '',
+            brief: '',
             loading: true,
             userType: '1'
         }
@@ -135,8 +136,15 @@ class CollectionCreateForm extends Component {
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="委员简介">
+                        label="PC 端简介">
                         {getFieldDecorator('description', {
+                            initialValue: ''
+                        })(<Input rows={4} type="textarea" />)}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="M 端简介">
+                        {getFieldDecorator('brief', {
                             initialValue: ''
                         })(<Input rows={4} type="textarea" />)}
                     </FormItem>
