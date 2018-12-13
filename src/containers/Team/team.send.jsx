@@ -185,6 +185,33 @@ class TeamSend extends Component {
         })
     }
 
+    // 查询账号余额
+    getBalance = (e) => {
+        const {teamInfo} = this.props
+        let sendData = {
+            teamId: teamInfo.id,
+            passportId: teamInfo.passportId,
+            exchange: e.target.getAttribute('data-id'),
+            apiKey: e.target.getAttribute('data-api')
+        }
+        this.setState({
+            loading: true
+        })
+        axiosAjax('post', '/api_key/getBalance', sendData, (res) => {
+            this.setState({
+                loading: false
+            })
+            if (res.code === 1) {
+                Modal.success({
+                    title: '查询余额',
+                    content: <h3>当前余额：<span>{res.obj}</span> BTC</h3>
+                })
+            } else {
+                message.error(res.msg)
+            }
+        })
+    }
+
     // 提交函数
     ajaxFn = (data, cb) => {
         const {teamInfo} = this.props
@@ -342,6 +369,13 @@ class TeamSend extends Component {
                 className="retire status"
                 onClick={(e) => { this.searchRecord(e) }}
             >  [查询记录]</a>
+            <a
+                title={`ApiKey: ${splitStr(arrStr).api}`}
+                data-api={splitStr(arrStr).api}
+                data-id={`${splitStr(arrStr).exchange}`}
+                className="retire status"
+                onClick={(e) => { this.getBalance(e) }}
+            >  [查询余额]</a>
         </span>
     }
 
