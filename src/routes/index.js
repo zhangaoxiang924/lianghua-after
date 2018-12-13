@@ -6,7 +6,7 @@
 
 import React from 'react'
 import Cookies from 'js-cookie'
-import {Route, IndexRoute} from 'react-router'
+import {Route, IndexRedirect} from 'react-router'
 function isLogin (nextState, replace) {
     let loginStatus = Cookies.get('loginStatus')
     if (!loginStatus || !Cookies.get('hx_id') || !$.parseJSON(loginStatus)) {
@@ -19,11 +19,14 @@ const rootRoutes = <div>
             callback(null, require('../containers/Main').default)
         }, 'Main')
     }}>
+        <IndexRedirect to="/team-list" />
+        {/*
         <IndexRoute getComponent={(nextState, callback) => {
             require.ensure([], (require) => {
                 callback(null, require('../containers/Team/team.index').default)
             }, 'Enter')
         }}/>
+        */}
         {/* 合作伙伴 */}
         <Route path='/partner-list' getComponent={(nextState, callback) => {
             require.ensure([], (require) => {

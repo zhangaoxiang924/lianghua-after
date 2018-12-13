@@ -36,7 +36,10 @@ class TeamSend extends Component {
             loading: true,
             visible: false,
             noPassReason: '',
-            iconLoading: false
+            iconLoading: false,
+            recordVisible: false,
+            modalLoading: false,
+            record: []
         }
     }
 
@@ -104,22 +107,23 @@ class TeamSend extends Component {
     // 绑定交易所
     handleCreate = () => {
         const form = this.modalForm
-        const {apiList} = this.props
+        // const {apiList} = this.props
         form.validateFields((err, values) => {
             if (err) {
                 return
             }
-            if (apiList.join(',').indexOf(values.market) !== -1) {
-                confirm({
-                    title: '提示',
-                    content: `${values.market} 交易所已绑定, 是否覆盖?`,
-                    onOk: () => {
-                        this.bound(values)
-                    }
-                })
-            } else {
-                this.bound(values)
-            }
+            this.bound(values)
+            // if (apiList.join(',').indexOf(values.market) !== -1) {
+            //     confirm({
+            //         title: '提示',
+            //         content: `${values.market} 交易所已绑定, 是否覆盖?`,
+            //         onOk: () => {
+            //             this.bound(values)
+            //         }
+            //     })
+            // } else {
+            //     this.bound(values)
+            // }
         })
     }
 
@@ -131,13 +135,15 @@ class TeamSend extends Component {
             passportId: teamInfo.passportId
         }
         let exChange = e.target.getAttribute('data-id')
+        let api = e.target.getAttribute('data-api')
         confirm({
             title: '提示',
             content: `确认要取消绑定吗 ?`,
             onOk () {
                 let sendData = {
                     ...id,
-                    market: exChange
+                    market: exChange,
+                    apiKey: api
                 }
                 axiosAjax('post', '/api_key/unbind', sendData, (res) => {
                     if (res.code === 1) {
@@ -147,6 +153,34 @@ class TeamSend extends Component {
                         message.error(res.msg)
                     }
                 })
+            }
+        })
+    }
+
+    // 查询账号入金记录
+    searchRecord = (e) => {
+        const {teamInfo} = this.props
+        this.setState({
+            recordVisible: true,
+            modalLoading: true
+        })
+        let sendData = {
+            teamId: teamInfo.id,
+            passportId: teamInfo.passportId,
+            exchange: e.target.getAttribute('data-id'),
+            apiKey: e.target.getAttribute('data-api')
+        }
+        axiosAjax('post', '/api_key/getDepositHistory', sendData, (res) => {
+            this.setState({
+                modalLoading: false
+            })
+            if (res.code === 1) {
+                this.setState({
+                    record: res.obj.length === 0 ? ['无记录'] : res.obj
+                })
+                message.success('查询成功')
+            } else {
+                message.error(res.msg)
             }
         })
     }
@@ -280,19 +314,45 @@ class TeamSend extends Component {
         })
     }
 
-    render () {
-        const {getFieldDecorator} = this.props.form
-        const {teamInfo, apiList} = this.props
-        const {updateOrNot} = this.state
-        const formItemLayout = {
-            labelCol: {span: 1},
-            wrapperCol: {span: 18, offset: 1}
-        }
+    renderApi = (arrStr) => {
         const notBound = <a className="notBound status" onClick={() => {
             this.setState({
                 visible: true
             })
         }}>[未绑定]</a>
+
+        const splitStr = (str) => {
+            let exchange = str.split('`hx`')[0]
+            let api = str.split('`hx`')[1]
+            return {exchange, api}
+        }
+        return !arrStr ? notBound : <span>
+            <font title={`${splitStr(arrStr).api}`} className="exchangeName">{splitStr(arrStr).exchange}</font>
+            <a
+                title={`ApiKey: ${splitStr(arrStr).api}`}
+                data-api={splitStr(arrStr).api}
+                data-id={`${splitStr(arrStr).exchange}`}
+                className="retire status"
+                onClick={(e) => { this.unBound(e) }}
+            >[解除绑定]  </a>
+            <a
+                title={`ApiKey: ${splitStr(arrStr).api}`}
+                data-api={splitStr(arrStr).api}
+                data-id={`${splitStr(arrStr).exchange}`}
+                className="retire status"
+                onClick={(e) => { this.searchRecord(e) }}
+            >  [查询记录]</a>
+        </span>
+    }
+
+    render () {
+        const {getFieldDecorator} = this.props.form
+        const {teamInfo, apiList} = this.props
+        const {updateOrNot, record, recordVisible} = this.state
+        const formItemLayout = {
+            labelCol: {span: 1},
+            wrapperCol: {span: 18, offset: 1}
+        }
         return <div className="team-send">
             <Spin spinning={this.state.loading} size='large'>
                 <Form onSubmit={this.handleSubmit} ref={(form) => { this.mainForm = form }}>
@@ -447,24 +507,15 @@ class TeamSend extends Component {
                         <Col className="col-title">绑定API Key： </Col>
                         <Col offset={1} className="col-item">
                             <span className="account">账号1： </span>
-                            {!apiList[0] ? notBound : <span>
-                                <font className="exchangeName">{apiList[0]}</font>
-                                <a data-id={apiList[0]} className="retire status" onClick={(e) => { this.unBound(e) }}>[解除绑定]</a>
-                            </span>}
+                            {this.renderApi(apiList[0])}
                         </Col>
                         <Col offset={1} className="col-item">
                             <span className="account">账号2： </span>
-                            {!apiList[1] ? notBound : <span>
-                                <font className="exchangeName">{apiList[1]}</font>
-                                <a data-id={apiList[1] || ''} className="retire status" onClick={(e) => { this.unBound(e) }}>[解除绑定]</a>
-                            </span>}
+                            {this.renderApi(apiList[1])}
                         </Col>
                         <Col offset={1} className="col-item">
                             <span className="account">账号3： </span>
-                            {!apiList[2] ? notBound : <span>
-                                <font className="exchangeName">{apiList[2]}</font>
-                                <a data-id={apiList[2] || ''} className="retire status" onClick={(e) => { this.unBound(e) }}>[解除绑定]</a>
-                            </span>}
+                            {this.renderApi(apiList[2])}
                         </Col>
                     </Row>
 
@@ -487,6 +538,32 @@ class TeamSend extends Component {
                                 hashHistory.goBack()
                             }}>取消</Button>
                     </FormItem>
+
+                    <Modal
+                        title="入金记录查询"
+                        visible={recordVisible}
+                        className='recordModal'
+                        maskClosable={false}
+                        cancelText='返回'
+                        onOk={() => {
+                            this.setState({
+                                recordVisible: false,
+                                record: []
+                            })
+                        }}
+                        onCancel={() => {
+                            this.setState({
+                                recordVisible: false,
+                                record: []
+                            })
+                        }}
+                    >
+                        <Spin spinning={this.state.modalLoading} size='middle'>
+                            {record.length === 0 ? <p>请稍等...</p> : record.map((item) => {
+                                return <p>{item}</p>
+                            })}
+                        </Spin>
+                    </Modal>
                 </Form>
             </Spin>
             {this.state.visible && <CollectionCreateForm

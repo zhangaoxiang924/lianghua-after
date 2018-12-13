@@ -51,7 +51,7 @@ class TeamIndex extends Component {
     }
 
     componentWillMount () {
-        const {filter, dispatch} = this.props
+        const {filter} = this.props
         this.doSearch('init', {...filter})
         let optionCol = [{
             title: '操作',
@@ -64,10 +64,7 @@ class TeamIndex extends Component {
                     </p>
                     <p>
                         <a className="mr10 opt-btn" href="javascript:void(0)" onClick={() => {
-                            dispatch(selectedData(item))
-                            this.setState({
-                                visible: true
-                            })
+                            this.judgeState(item)
                         }} style={{background: '#e59e21'}}>资产修改</a>
                     </p>
                     {(() => {
@@ -141,7 +138,7 @@ class TeamIndex extends Component {
         }, {
             title: '领队信息',
             key: 'basicInfo',
-            width: 120,
+            width: 150,
             render: (text, record) => (record && <div className="participate-info clearfix">
                 <p className="age">姓名：{record.leaderName}</p>
                 <p className="age">公司：{record.companyName}</p>
@@ -165,7 +162,7 @@ class TeamIndex extends Component {
         }, {
             title: '资产(BTC)',
             key: 'property',
-            width: 130,
+            width: 150,
             render: (record) => {
                 return <div>
                     <p className="age">初始：{record.initBalance || '0'}</p>
@@ -319,6 +316,19 @@ class TeamIndex extends Component {
         })
     }
 
+    judgeState (item) {
+        const {dispatch} = this.props
+        if (item.autoFetchBalance) {
+            message.error('请首先将余额获取方式修改为手动!')
+            return false
+        } else {
+            dispatch(selectedData(item))
+            this.setState({
+                visible: true
+            })
+        }
+    }
+
     // 修改资产
     balanceChange () {
         const {selectedData, form} = this.props
@@ -431,7 +441,7 @@ class TeamIndex extends Component {
                     <FormItem {...formItemLayout} label="初始资金">
                         {getFieldDecorator('initBalance', {
                             rules: [{
-                                required: true, message: '请输入初始资金!'
+                                required: false, message: '请输入初始资金!'
                             }, {
                                 pattern: /^[0-9]\d*$/, message: '初始资金必须大于等于0!'
                             }],

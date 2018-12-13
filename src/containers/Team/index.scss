@@ -273,6 +273,14 @@
     }
 }
 
+.recordModal {
+    .ant-modal-body {
+        min-height: 150px;
+        max-height: 300px;
+        overflow: auto;
+    }
+}
+
 .team-send {
     min-width: 1000px !important;
 

@@ -42,7 +42,9 @@ class CollectionCreateForm extends Component {
                                 <Radio value="okex">OKEx</Radio>
                                 <Radio value="bitmex">BitMEX</Radio>
                                 <Radio value="bitfinex">BitFinex</Radio>
+                                <Radio value="binance">Binance</Radio>
                                 <Radio value="jex">JEx</Radio>
+                                <Radio value="bhex">BHEX</Radio>
                             </Radio.Group>
                         )}
                     </FormItem>
