@@ -14,6 +14,7 @@ import { Base64 } from 'js-base64'
 import store from '../store/index'
 import {alertLogin} from '../actions/index'
 import JsEncrypt from 'jsencrypt'
+import CryptoJS from 'crypto-js'
 
 export let URL = '/mgr'
 // export const site = 'http://www.huoxing24.com'
@@ -44,6 +45,24 @@ export const encodeStr = (obj) => {
         encrypt.setPublicKey(keyA)
         return encrypt.encrypt(JSON.stringify(obj))
     }
+}
+
+// AES 加密
+const aesKey = 'R046DZuTZ1HSX+ll'
+export const AESStr = (obj) => {
+    if (typeof window !== 'undefined') {
+        let key = CryptoJS.enc.Utf8.parse(aesKey)
+        let srcs = CryptoJS.enc.Utf8.parse(obj)
+        let encrypted = CryptoJS.AES.encrypt(srcs, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
+        return encrypted.toString()
+    }
+}
+
+// AES 解密
+export const DESStr = (str) => {
+    let key = CryptoJS.enc.Utf8.parse(aesKey)
+    let decrypt = CryptoJS.AES.decrypt(str, key, {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7})
+    return CryptoJS.enc.Utf8.stringify(decrypt).toString()
 }
 
 export const getSig = () => {

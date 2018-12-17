@@ -19,7 +19,7 @@ import {
     Spin
 } from 'antd'
 import {getTeamItemInfo, getExchangeInfo} from '../../actions/team/team.action'
-import {axiosAjax, encodeStr} from '../../public/index'
+import {axiosAjax, AESStr} from '../../public/index'
 import './index.scss'
 import CollectionCreateForm from './ModalForm/index'
 const FormItem = Form.Item
@@ -86,7 +86,7 @@ class TeamSend extends Component {
             teamId: teamInfo.id,
             passportId: teamInfo.passportId
         }
-        const data = encodeStr({...values, ...id})
+        const data = AESStr(JSON.stringify({...values, ...id}))
         this.setState({
             confirmLoading: true
         })
@@ -592,7 +592,7 @@ class TeamSend extends Component {
                             })
                         }}
                     >
-                        <Spin spinning={this.state.modalLoading} size='middle'>
+                        <Spin spinning={this.state.modalLoading}>
                             {record.length === 0 ? <p>请稍等...</p> : record.map((item) => {
                                 return <p>{item}</p>
                             })}
