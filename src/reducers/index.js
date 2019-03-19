@@ -13,6 +13,7 @@ import partnerInfo from './partner/partner.reducer'
 import councilInfo from './council/council.reducer'
 import teamInfo from './team/team.reducer'
 import accountInfo from './account/index'
+import bannerInfo from './banner/banner.reducer'
 
 const reducers = Object.assign({
     publicInfo,
@@ -21,6 +22,7 @@ const reducers = Object.assign({
     councilInfo,
     teamInfo,
     accountInfo,
+    bannerInfo,
     routing: routerReducer
 })
 

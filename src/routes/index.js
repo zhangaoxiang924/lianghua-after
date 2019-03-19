@@ -71,6 +71,17 @@ const rootRoutes = <div>
                 callback(null, require('../containers/Account/index').default)
             }, 'FlashAccount')
         }}/>
+        {/* banner 轮播图管理 */}
+        <Route path='/banner-list' getComponent={(nextState, callback) => {
+            require.ensure([], (require) => {
+                callback(null, require('../containers/Banner/banner.index').default)
+            }, 'BannerIndex')
+        }}/>
+        <Route path='/banner-edit' getComponent={(nextState, callback) => {
+            require.ensure([], (require) => {
+                callback(null, require('../containers/Banner/banner.add').default)
+            }, 'BannerEdit')
+        }}/>
     </Route>
     <Route path='/login' getComponent={(nextState, callback) => {
         require.ensure([], (require) => {

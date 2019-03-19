@@ -5,8 +5,8 @@
  */
 @font-face {
     font-family: 'iconfont';  /* project id 954170 */
-    src: url('//at.alicdn.com/t/font_954170_e0n8xfno7kg.eot');
-    src: url('//at.alicdn.com/t/font_954170_e0n8xfno7kg.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_954170_e0n8xfno7kg.woff') format('woff'), url('//at.alicdn.com/t/font_954170_e0n8xfno7kg.ttf') format('truetype'), url('//at.alicdn.com/t/font_954170_e0n8xfno7kg.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_954170_bdymdr09rvp.eot');
+    src: url('//at.alicdn.com/t/font_954170_bdymdr09rvp.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_954170_bdymdr09rvp.woff2') format('woff2'), url('//at.alicdn.com/t/font_954170_bdymdr09rvp.woff') format('woff'), url('//at.alicdn.com/t/font_954170_bdymdr09rvp.ttf') format('truetype'), url('//at.alicdn.com/t/font_954170_bdymdr09rvp.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -31,4 +31,8 @@
 
 .icon-council:before {
     content: '\e6be';
+}
+
+.icon-banner:before {
+    content: '\e668';
 }

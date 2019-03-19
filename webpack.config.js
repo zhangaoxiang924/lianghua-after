@@ -12,6 +12,18 @@ const DIST_PATH = resolve(ROOT_PATH, 'dist')
 const LIBS_PATH = resolve(ROOT_PATH, 'libs')
 const TEM_PATH = resolve(LIBS_PATH, 'template')
 
+const interfaces = require('os').networkInterfaces()
+let IPAddress = ''
+for (let devName in interfaces) {
+    let iface = interfaces[devName]
+    for (let i = 0; i < iface.length; i++) {
+        let alias = iface[i]
+        if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+            IPAddress = alias.address
+        }
+    }
+}
+
 module.exports = {
     devtool: 'eval-source-map',
     entry: {
@@ -84,14 +96,14 @@ module.exports = {
             filename: 'index.html',
             inject: 'body'
         }),
-        new OpenBrowserWebpackPlugin({url: 'http://192.168.90.12:3010'})
+        new OpenBrowserWebpackPlugin({url: `http://${IPAddress}:3010`})
     ],
     devServer: {
         inline: true,
         hot: true,
         historyApiFallback: true,
         contentBase: ROOT_PATH,
-        host: '192.168.90.12',
+        host: IPAddress,
         port: '3010',
         proxy: {
             '/**':{

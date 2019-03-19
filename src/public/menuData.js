@@ -481,6 +481,13 @@ const basic = [
     // },
     */
     {
+        key: 'banner',
+        symbol: 16,
+        icon: 'icon-banner',
+        link: '/banner-list',
+        text: '轮播管理'
+    },
+    {
         key: 'team',
         symbol: 27,
         icon: 'icon-team',

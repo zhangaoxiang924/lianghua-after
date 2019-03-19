@@ -8,7 +8,8 @@ export const NavKey = {
     'account': '账号管理',
     'team': '报名团队管理',
     'council': '委员会管理',
-    'partner': '合作伙伴管理'
+    'partner': '合作伙伴管理',
+    'banner': '轮播图管理'
 }
 
 export const PageSize = ['10', '20', '30', '50', '100']
