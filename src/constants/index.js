@@ -19,18 +19,6 @@ export const ALERTLOGIN = 'alertLogin'
 // 导航
 export const NAVIGATION = 'navigation'
 
-// 频道
-export const CHANNELLIST = 'channelList'
-
-// 频道
-export const FLASHTYPELIST = 'flashTypeList'
-
-// 城市
-export const ACTIVITYCITY = 'cityList'
-
-// 游戏列表
-export const GAMELIST = 'game-list'
-
 // 后台管理员账号管理
 export const MANAGERACCOUNT = {
     'ADD_DATA': 'ADD_MANAGERACCOUNT_DATA',

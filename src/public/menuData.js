@@ -2,7 +2,7 @@
  * Author：zhoushuanglong
  * Time：2017/7/27
  * Description：menu data
- * , {
+ *  {
         key: 'postUser',
         icon: 'icon-postUser',
         link: '/postUser',
@@ -21,7 +21,7 @@
  */
 import Cookies from 'js-cookie'
 const basic = [
-    /*
+    /** 之前的菜单, 留作备用
     {
         key: 'count',
         icon: 'icon-count',
@@ -481,29 +481,29 @@ const basic = [
     // },
     */
     {
-        key: 'banner',
-        symbol: 16,
-        icon: 'icon-banner',
-        link: '/banner-list',
+        key: 'banner', // 用来判断第一层面包屑文字展示
+        symbol: 1, // 备用id, 暂时没用到
+        icon: 'icon-banner', // 这里和 font.scss里的icon图标设置相呼应
+        link: '/banner-list', // 路由用 '-' 分开是为了页面中第二层面包屑文字的展示
         text: '轮播管理'
     },
     {
         key: 'team',
-        symbol: 27,
+        symbol: 2,
         icon: 'icon-team',
         link: '/team-list',
         text: '团队管理'
     },
     {
         key: 'partner',
-        symbol: 27,
+        symbol: 3,
         icon: 'icon-partner',
         link: '/partner-list',
         text: '合作伙伴管理'
     },
     {
         key: 'council',
-        symbol: 27,
+        symbol: 4,
         icon: 'icon-council',
         link: '/council-list',
         text: '委员会管理'
@@ -512,7 +512,7 @@ const basic = [
 
 let menuData = () => {
     let level = parseInt(Cookies.get('hx_level'))
-    if (level === 30) {
+    if (level === 30) { // 前端通过不同的 角色值 来判断所需菜单的展示与隐藏
         return [{
             key: 'account',
             icon: 'icon-account',

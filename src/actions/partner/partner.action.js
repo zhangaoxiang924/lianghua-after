@@ -53,22 +53,6 @@ export const addPartnerData = (data) => {
     return {type: PARTNER.ADD_DATA, data}
 }
 
-export const addPartnerQuery = (data) => {
-    return {type: PARTNER.ADD_QUERY, data}
-}
-
-export const editPartnerUserInfo = (data) => {
-    return {type: PARTNER.EDIT_USER_INFO, data}
-}
-
-export const editPartnerList = (data, index) => {
-    return {type: PARTNER.EDIT_LIST_ITEM, data, index}
-}
-
-export const delPartnerData = (index) => {
-    return {type: PARTNER.DEL_LIST_ITEM, index}
-}
-
 export const setSearchQuery = (data) => {
     return {type: PARTNER.SET_SEARCH_QUERY, data}
 }

@@ -16,7 +16,6 @@ const councilInfo = (
         info: {},
         replyList: []
     }, action) => {
-    let _query = state.query
     let _list = state.list
     let search = state.search
     let pageData = state.pageData
@@ -24,25 +23,12 @@ const councilInfo = (
     switch (action.type) {
         case COUNCIL.ADD_DATA:
             return {...state, ...action.data}
-        case COUNCIL.ADD_QUERY:
-            return {...state, query: {..._query, ...action.data}}
         case COUNCIL.SET_SEARCH_QUERY:
             return {...state, search: {...search, ...action.data}}
         case COUNCIL.SET_PAGE_DATA:
             return {...state, pageData: {...pageData, ...action.data}}
         case COUNCIL.SET_FILTER_DATA:
             return {...state, filter: {...filter, ...action.data}}
-        case COUNCIL.EDIT_LIST_ITEM:
-            let _thisItem = _list[action.index]
-            return {
-                ...state,
-                list: [
-                    ..._list.slice(0, action.index), {
-                        ..._thisItem,
-                        ...action.data
-                    },
-                    ..._list.slice(action.index + 1)]
-            }
         case COUNCIL.DEL_LIST_ITEM:
             return {...state, list: [..._list.slice(0, action.index), ..._list.slice(action.index + 1)]}
         case SELECTEDDATA:

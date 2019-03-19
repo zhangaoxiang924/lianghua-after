@@ -51,26 +51,6 @@ export const addManagerAccountData = (data) => {
     return {type: MANAGERACCOUNT.ADD_DATA, data}
 }
 
-export const addManagerAccountQuery = (data) => {
-    return {type: MANAGERACCOUNT.ADD_QUERY, data}
-}
-
-export const editManagerAccountUserInfo = (data) => {
-    return {type: MANAGERACCOUNT.EDIT_USER_INFO, data}
-}
-
-export const editManagerAccountList = (data, index) => {
-    return {type: MANAGERACCOUNT.EDIT_LIST_ITEM, data, index}
-}
-
-export const delManagerAccountData = (index) => {
-    return {type: MANAGERACCOUNT.DEL_LIST_ITEM, index}
-}
-
-export const delReplyList = (index) => {
-    return {type: MANAGERACCOUNT.DEL_REPLY_LIST, index}
-}
-
 export const setSearchQuery = (data) => {
     return {type: MANAGERACCOUNT.SET_SEARCH_QUERY, data}
 }

@@ -12,7 +12,7 @@ import Cookies from 'js-cookie'
 import { Form, Icon, Input, Modal } from 'antd'
 import './index.scss'
 import { alertLogin, login } from '../../actions/index'
-import { deleteCookies } from '../../public/index'
+import { deleteCookies, encodePsd } from '../../public/index'
 const FormItem = Form.Item
 class AlertLogin extends Component {
     constructor (props) {
@@ -30,6 +30,7 @@ class AlertLogin extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 values.loginType = 'alert'
+                values.password = encodePsd(values.password)
                 _this.setState({ iconLoading: true })
                 _this.props.actions.login(values, (data) => {
                     if (data.code !== 1 || !data.code) {
@@ -69,7 +70,7 @@ class AlertLogin extends Component {
         >
             <Form onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
-                    {getFieldDecorator('nickNameOrphoneNum', {
+                    {getFieldDecorator('userName', {
                         rules: [{required: true, message: '请输入账号'}],
                         initialValue: this.state.value
                     })(

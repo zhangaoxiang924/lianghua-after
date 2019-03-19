@@ -51,26 +51,6 @@ export const addAccountData = (data) => {
     return {type: ACCOUNT.ADD_DATA, data}
 }
 
-export const addAccountQuery = (data) => {
-    return {type: ACCOUNT.ADD_QUERY, data}
-}
-
-export const editAccountUserInfo = (data) => {
-    return {type: ACCOUNT.EDIT_USER_INFO, data}
-}
-
-export const editAccountList = (data, index) => {
-    return {type: ACCOUNT.EDIT_LIST_ITEM, data, index}
-}
-
-export const delAccountData = (index) => {
-    return {type: ACCOUNT.DEL_LIST_ITEM, index}
-}
-
-export const delReplyList = (index) => {
-    return {type: ACCOUNT.DEL_REPLY_LIST, index}
-}
-
 export const setSearchQuery = (data) => {
     return {type: ACCOUNT.SET_SEARCH_QUERY, data}
 }

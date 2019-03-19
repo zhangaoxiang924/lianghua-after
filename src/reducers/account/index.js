@@ -32,41 +32,22 @@ const accountInfo = (state = {
         passportId: ''
     }
 }, action) => {
-    let _query = state.query
-    let _userInfo = state.userInfo
+    // 某些reducer 用不到但是 并未删除, 只留作备用
     let _list = state.list
-    let _replyList = state.replyList
     let search = state.search
     let pageData = state.pageData
     let filter = state.filter
     switch (action.type) {
         case ACCOUNT.ADD_DATA:
             return {...state, ...action.data}
-        case ACCOUNT.ADD_QUERY:
-            return {...state, query: {..._query, ...action.data}}
         case ACCOUNT.SET_SEARCH_QUERY:
             return {...state, search: {...search, ...action.data}}
         case ACCOUNT.SET_PAGE_DATA:
             return {...state, pageData: {...pageData, ...action.data}}
         case ACCOUNT.SET_FILTER_DATA:
             return {...state, filter: {...filter, ...action.data}}
-        case ACCOUNT.EDIT_USER_INFO:
-            return {...state, userInfo: {..._userInfo, ...action.data}}
-        case ACCOUNT.EDIT_LIST_ITEM:
-            let _thisItem = _list[action.index]
-            return {
-                ...state,
-                list: [
-                    ..._list.slice(0, action.index), {
-                        ..._thisItem,
-                        ...action.data
-                    },
-                    ..._list.slice(action.index + 1)]
-            }
         case ACCOUNT.DEL_LIST_ITEM:
             return {...state, list: [..._list.slice(0, action.index), ..._list.slice(action.index + 1)]}
-        case ACCOUNT.DEL_REPLY_LIST:
-            return {...state, replyList: [..._replyList.slice(0, action.index), ..._replyList.slice(action.index + 1)]}
         case SELECTEDDATA:
             return {...state, selectedData: action.data}
         default:

@@ -36,22 +36,6 @@ export const addCouncilData = (data) => {
     return {type: COUNCIL.ADD_DATA, data}
 }
 
-export const addCouncilQuery = (data) => {
-    return {type: COUNCIL.ADD_QUERY, data}
-}
-
-export const editCouncilUserInfo = (data) => {
-    return {type: COUNCIL.EDIT_USER_INFO, data}
-}
-
-export const editCouncilList = (data, index) => {
-    return {type: COUNCIL.EDIT_LIST_ITEM, data, index}
-}
-
-export const delCouncilData = (index) => {
-    return {type: COUNCIL.DEL_LIST_ITEM, index}
-}
-
 export const setSearchQuery = (data) => {
     return {type: COUNCIL.SET_SEARCH_QUERY, data}
 }

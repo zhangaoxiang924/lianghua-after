@@ -66,63 +66,8 @@ export const getExchangeInfo = (sendData, fn) => {
     }
 }
 
-// 获取缓存数据
-export const getLocalInfo = (sendData, fn) => {
-    return (dispatch) => {
-        let article = localStorage.getItem('articleData')
-        if (!article) {
-            return false
-        } else {
-            dispatch(addTeamData({'info': JSON.parse(article)}))
-            if (fn) {
-                fn(JSON.parse(article))
-            }
-        }
-    }
-}
-
-export const newsToTop = (sendData, fn) => {
-    return (dispatch) => {
-        axiosAjax('post', '/news/setorder', {...sendData}, function (res) {
-            // console.log(res)
-            if (res.code === 1) {
-                if (parseInt(sendData.topOrder) === 0) {
-                    message.success('取消置顶成功！')
-                } else {
-                    message.success('置顶成功！')
-                }
-                if (fn) {
-                    fn()
-                }
-            } else {
-                message.error(res.msg)
-            }
-        })
-    }
-}
-
 export const addTeamData = (data) => {
     return {type: TEAM.ADD_DATA, data}
-}
-
-export const addTeamQuery = (data) => {
-    return {type: TEAM.ADD_QUERY, data}
-}
-
-export const editTeamUserInfo = (data) => {
-    return {type: TEAM.EDIT_USER_INFO, data}
-}
-
-export const editTeamList = (data, index) => {
-    return {type: TEAM.EDIT_LIST_ITEM, data, index}
-}
-
-export const delTeamData = (index) => {
-    return {type: TEAM.DEL_LIST_ITEM, index}
-}
-
-export const delReplyList = (index) => {
-    return {type: TEAM.DEL_REPLY_LIST, index}
 }
 
 export const setSearchQuery = (data) => {

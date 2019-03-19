@@ -49,54 +49,22 @@ export const getBannerItemInfo = (sendData, fn) => {
     }
 }
 
-// 获取占位数
-export const getTopNum = (position, fn) => {
-    return (dispatch) => {
-        axiosAjax('get', '/homerecommend/gethomerecommendshownum', {position: position}, function (res) {
-            if (res.code === 1) {
-                const actionData = res.obj
-                dispatch({
-                    type: BANNER.GET_TOP_NUM,
-                    actionData
-                })
-                if (fn) {
-                    fn(actionData)
-                }
-            } else {
-                message.error(res.msg)
-            }
-        })
-    }
-}
-
+// 有一些不用的actions并未删除 留作备用
 export const addBannerData = (data) => {
     return {type: BANNER.ADD_DATA, data}
 }
 
-export const addBannerQuery = (data) => {
-    return {type: BANNER.ADD_QUERY, data}
-}
-
-export const editBannerUserInfo = (data) => {
-    return {type: BANNER.EDIT_USER_INFO, data}
-}
-
-export const editBannerList = (data, index) => {
-    return {type: BANNER.EDIT_LIST_ITEM, data, index}
-}
-
-export const delBannerData = (index) => {
-    return {type: BANNER.DEL_LIST_ITEM, index}
-}
-
+// 设置搜索条件用
 export const setSearchQuery = (data) => {
     return {type: BANNER.SET_SEARCH_QUERY, data}
 }
 
+// 设置过滤条件用
 export const setFilterData = (data) => {
     return {type: BANNER.SET_FILTER_DATA, data}
 }
 
+// 设置页数总页数用
 export const setPageData = (data) => {
     return {type: BANNER.SET_PAGE_DATA, data}
 }
