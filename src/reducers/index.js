@@ -14,6 +14,7 @@ import councilInfo from './council/council.reducer'
 import teamInfo from './team/team.reducer'
 import accountInfo from './account/index'
 import bannerInfo from './banner/banner.reducer'
+import CQTeamInfo from './CQteam/CQteam.reducer'
 
 const reducers = Object.assign({
     publicInfo,
@@ -23,6 +24,7 @@ const reducers = Object.assign({
     teamInfo,
     accountInfo,
     bannerInfo,
+    CQTeamInfo,
     routing: routerReducer
 })
 

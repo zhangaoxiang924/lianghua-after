@@ -82,6 +82,22 @@ const rootRoutes = <div>
                 callback(null, require('../containers/Banner/banner.add').default)
             }, 'BannerEdit')
         }}/>
+        {/* CQ量化大赛团队管理 */}
+        <Route path='/CQTeam-list' getComponent={(nextState, callback) => {
+            require.ensure([], (require) => {
+                callback(null, require('../containers/CQTeam/CQTeam.index').default)
+            }, 'CQTeamList')
+        }}/>
+        <Route path='/CQTeam-send' getComponent={(nextState, callback) => {
+            require.ensure([], (require) => {
+                callback(null, require('../containers/CQTeam/CQTeam.send').default)
+            }, 'CQTeamSend')
+        }}/>
+        <Route path='/CQTeam-detail' getComponent={(nextState, callback) => {
+            require.ensure([], (require) => {
+                callback(null, require('../containers/CQTeam/CQTeam.detail').default)
+            }, 'CQTeamDetail')
+        }}/>
     </Route>
     <Route path='/login' getComponent={(nextState, callback) => {
         require.ensure([], (require) => {
